@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>all users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Test App</a>
+          </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{% url 'dashboard:my_home' %}">Dashboard</a></li>
+          <li><a href="{% url 'dashboard:my_profile' id=request.session.id %}">Profile</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'dashboard:my_logout'%}"><span class="glyphicon glyphicon-user"></span> Sign out</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h2>{{user.first_name}} {{user.last_name}}</h2>
+      Registered at: {{user.created_at|date:"m-d-Y"}}<br>
+      user ID:{{user.id}}<br>
+      Email address:{{user.email}}<br>
+      Description:{{user.description}}
+
+    <form action="{% url 'dashboard:create_message' id=user.id %}" method="post">
+      {% csrf_token %}
+      <textarea name="message" rows="5" cols="60"></textarea><br>
+      <input type="submit" class="btn btn-primary" value="message">
+    </form>
+    {% for message in messages %}
+    {% load humanize %}
+    {{message.created_by.first_name}} {{message.created_by.last_name}} wrote at {{message.created_at|naturaltime}}<br>
+    <textarea name="message" rows="3" cols="60">{{message.message}}</textarea><br>
+    {% for post in posts %}
+      {{post.user.first_name}} {{post.user.last_name}} wrote: {{post.created_at|naturaltime}} <br>
+      <textarea name="post" rows="3" cols="50">{{post.comment}}</textarea><br>
+    {% endfor %}
+    <form  action="{% url 'dashboard:create_post' id=user.id %}" method="post">
+      {% csrf_token %}
+      <textarea name="comment" rows="3" cols="50"></textarea><br>
+      <input type="submit" class="btn btn-primary" value="post">
+    </form>
+    {% endfor %}
+    </div>
+  </body>
+</html>

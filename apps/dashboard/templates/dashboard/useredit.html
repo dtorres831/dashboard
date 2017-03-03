@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>all users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'dashboard:my_home' %}">Test App</a>
+          </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{% url 'dashboard:my_home' %}">Dashboard</a></li>
+          <li><a href="{% url 'dashboard:my_profile' id=request.session.id %}">Profile</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'dashboard:my_logout'%}"><span class="glyphicon glyphicon-user"></span> Sign out</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>Edit profile</h1>
+      <div id="left">
+        <h3>edit info</h3>
+        <form  action="#" method="post">
+          {% csrf_token %}
+          Email Address:<br>
+          <input type="text" name="email" value="{{user.email}}"><br>
+          First name:<br>
+          <input type="text" name="first_name" value="{{user.first_name}}"><br>
+          Last name:<br>
+          <input type="text" name="last_name"  value="{{user.last_name}}"><br>
+          <input type="submit" name="" value="save">
+        </form>
+      </div>
+      <div id="right">
+        <h3>edit password</h3>
+        {% if messages %}
+          {% for message in messages %}
+            {{message}}<br>
+          {% endfor %}
+        {% endif %}
+        <form action="#" method="post">
+          {% csrf_token %}
+          password:<br>
+          <input type="password" name="password" value=""><br>
+          password confirm:<br>
+          <input type="password" name="confirm_password" value=""><br>
+          <input type="submit" name="" value="update password">
+        </form>
+        <form action="{% url 'dashboard:description_update' id=user.id %}" method="post">
+          {% csrf_token %}
+          <h3>edit description</h3>
+          <textarea name="description" rows="8" cols="40"></textarea>
+          <input type="submit" name="" value="save">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

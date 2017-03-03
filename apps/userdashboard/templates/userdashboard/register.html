@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Test App</a>
+          </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{% url 'home:my_home'%}">Home</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'home:my_signin'%}"><span class="glyphicon glyphicon-user"></span> Sign in</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <h1>register</h1>
+      {% if messages %}
+        {% for message in messages %}
+          {{message}}<br>
+        {% endfor %}
+      {% endif %}
+      <form  action="{% url 'home:my_vregister'%}" method="post">
+        {% csrf_token %}
+        Email Address:<br>
+        <input type="text" name="email" value=""><br>
+        First name:<br>
+        <input type="text" name="first_name" value=""><br>
+        Last name:<br>
+        <input type="text" name="last_name" value=""><br>
+        Password:<br>
+        <input type="password" name="password" placeholder="password" value=""><br>
+        Password confirmation:<br>
+        <input type="password" name="confirm_password" placeholder="password" value=""><br>
+        <input type="submit" class="btn btn-success" name="" value="register">
+      </form>
+      <a href="{% url 'home:my_signin'%}">Already have an account? login</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Test App</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{% url 'home:my_home'%}">Home</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'home:my_signin'%}"><span class="glyphicon glyphicon-user"></span> Sign in</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+    <div class="jumbotron">
+      <h1>Welcome to the test</h1>
+      <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing
+      responsive, mobile-first projects on the web.</p>
+      <form  action="{% url 'home:my_register'%}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" name="" value="Start">
+      </form>
+    </div>
+    <p>This is some text.</p>
+    <p>This is another text.</p>
+  </div>
+  </body>
+</html>
